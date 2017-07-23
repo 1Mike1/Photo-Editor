@@ -1,6 +1,6 @@
 	push dword 0					;LPVOID lpParam 	// pointer to window-creation data
-	push dword 0					;HINSTANCE hInstance,	// handle to application instance
-	push dword 0					;HMENU hMenu,	// handle to menu, or child-window identifier
+	push dword [hInstance]			;HINSTANCE hInstance,	// handle to application instance
+	push dword [buttonID]			;HMENU hMenu,	// handle to menu, or child-window identifier
 	push dword [windowHandle]		;HWND hWndParent,	// handle to parent or owner window
 	push dword 100					;int nHeight,	// window height
 	push dword 100					;int nWidth,	// window width

@@ -7,7 +7,7 @@ windowProcedure:
 	; the parameters are located at these kind of offsets.
 	; 4 Parameters
 	%define ebp_hwnd 	ebp+8
-	%define ebp_message 	ebp+12
+	%define ebp_message ebp+12
 	%define ebp_wparam 	ebp+16
 	%define ebp_lparam 	ebp+20
 	
@@ -18,6 +18,8 @@ windowProcedure:
 	je .onDestroy
 	cmp [ebp_message],dword WM_CREATE
 	je .onCreate
+	cmp [ebp_message], dword WM_COMMAND
+	je .onClick
 	
 .defaultProcedure:
 	push dword [ebp_lparam]
@@ -54,6 +56,9 @@ windowProcedure:
 	push dword 6
 	push dword [windowHandle]
 	call _ShowWindow@8
+	mov eax,0
+	mov esp,ebp
+	pop ebp
 	ret 16
 	
 .onDestroy:
@@ -63,3 +68,24 @@ windowProcedure:
 	mov esp,ebp
 	pop ebp
 	ret 16 ; stdcall convetion requres pop all parameters from stack 4*4 = 16 bytes
+	
+.onClick:
+	mov ax, [ebp_wparam]
+	;and ax, 0x0000FFFF
+	cmp ax, [buttonID]
+	je .buttonClick
+	mov eax,0
+	mov esp,ebp
+	pop ebp
+	ret 16
+	
+.buttonClick:
+	push 0
+	push messageTitle
+	push messageText
+	push 0
+	call _MessageBoxA@16
+	mov eax,0
+	mov esp,ebp
+	pop ebp
+	ret 16

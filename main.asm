@@ -17,8 +17,8 @@ extern _UpdateWindow@4
 extern _DestroyWindow@4
 extern _PostQuitMessage@4
 
-extern _PeekMessageA@20
 extern _GetMessageA@16
+extern _TranslateMessage@4
 extern _DispatchMessageA@4
 
 section .bss
@@ -26,15 +26,9 @@ section .bss
 	mainWindowClassEx resb 12*4
 	mainMessageStruct resb 7*4
 	windowHandle resb 4
-	buttonHandle resb 4
+	
 	buttonMessageStruct resb 7*4
-	
-	handleIn resd 4
-	handleOut resd 4
-	
-	buffer resb 64
-	ulen resb 4
-	number resb 4
+	buttonHandle resb 4
 
 section .data
 	CS_VREDRAW  equ 0x0001
@@ -62,6 +56,7 @@ section .data
 	mainWindowClassName db 'mainWindow', 0
 	mainWindowName db 'Photo Editor', 0
 	
+	buttonID db 1, 0
 	buttonClass db 'BUTTON', 0
 	buttonText db 'OK', 0
 	

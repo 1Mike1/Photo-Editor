@@ -1,7 +1,7 @@
 mainMessageLoop:
 	push dword 0
 	push dword 0
-	push dword [windowHandle]
+	push dword 0
 	push dword mainMessageStruct
 	call _GetMessageA@16
 	
@@ -9,7 +9,7 @@ mainMessageLoop:
 	jle _exit
 
 	;push dword mainMessageStruct
-	;call [TranslateMessage]
+	;call _TranslateMessage@4
 	
 	push dword mainMessageStruct
 	call _DispatchMessageA@4
