@@ -1,7 +1,5 @@
 global _main
-;extern  _GetStdHandle@4
-;extern  _WriteFile@20
-;extern _ReadFile@20
+
 extern  _ExitProcess@4
 extern _MessageBoxA@16
 
