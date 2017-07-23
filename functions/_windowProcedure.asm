@@ -32,9 +32,9 @@ windowProcedure:
 	ret 16 ; stdcall convetion requres pop all parameters from stack 4*4 = 16 bytes
 	
 .onCreate:
-	push dword SW_SHOW
-	push dword [ebp_hwnd]
-	call _ShowWindow@8
+	;push dword SW_SHOW
+	;push dword [ebp_hwnd]
+	;call _ShowWindow@8
 	
 	push dword [ebp_hwnd]
 	call _UpdateWindow@4

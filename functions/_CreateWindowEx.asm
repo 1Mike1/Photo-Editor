@@ -6,7 +6,7 @@
 	push dword 640					;int nWidth,	// window width
 	push dword 128					;int y,	// vertical position of window
 	push dword 128					;int x,	// horizontal position of window
-	push dword WS_SYSMENU			;DWORD dwStyle,	// window style
+	push dword WS_WINDOWSTYLE		;DWORD dwStyle,	// window style
 	push dword mainWindowName		;LPCTSTR lpWindowName,	// pointer to window name
 	push dword mainWindowClassName		;LPCTSTR lpClassName,	// pointer to registered class name
 	push dword 0					;DWORD dwExStyle,	// extended window style
