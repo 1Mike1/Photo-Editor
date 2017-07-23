@@ -11,6 +11,6 @@
 	push dword mainWindowClassName		;LPCTSTR lpClassName,	// pointer to registered class name
 	push dword 0					;DWORD dwExStyle,	// extended window style
 	call _CreateWindowExA@48
-	mov [windowHandle],eax
+	mov [windowHandle], eax
 	;cmp eax,0
 	;je createWindowError

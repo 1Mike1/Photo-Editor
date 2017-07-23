@@ -17,6 +17,7 @@ extern _UpdateWindow@4
 extern _DestroyWindow@4
 extern _PostQuitMessage@4
 
+extern _PeekMessageA@20
 extern _GetMessageA@16
 extern _DispatchMessageA@4
 
@@ -46,8 +47,8 @@ section .data
 	MB_ICONEXCLAMATION equ 0x00000030
 
 	WS_SYSMENU  equ 0x00080000
-	WS_CHILD equ 0x40000000
-	WS_VISIBLE equ 0x10000000
+	;WS_CHILD equ 0x40000000
+	;WS_VISIBLE equ 0x10000000
 	WS_VISIBLECHILD equ 0x50000000
 
 	SW_SHOW  equ 5
