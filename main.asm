@@ -80,7 +80,6 @@ _main:
 	;ShowWindow()
 	%include "functions/_RegisterClassEx.asm"
 	%include "functions/_CreateWindowEx.asm"
-	
 	%include "functions/_CreateButton.asm"
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
