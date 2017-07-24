@@ -14,6 +14,8 @@ extern _ShowWindow@8
 extern _UpdateWindow@4
 extern _DestroyWindow@4
 extern _PostQuitMessage@4
+extern _GetWindowRect@8
+extern _SetWindowPos@28
 
 extern _GetMessageA@16
 extern _TranslateMessage@4
@@ -28,8 +30,12 @@ section .bss
 	mainMessageStruct resb 7*4
 	windowHandle resb 4
 	
+	windowSize resb 4*4
+	
 	buttonMessageStruct resb 7*4
 	buttonHandle resb 4
+	
+	font resw 1
 
 section .data
 	CS_VREDRAW  equ 0x0001
@@ -56,6 +62,7 @@ section .data
 	WM_DESTROY equ 0x2
 	WM_CLOSE  equ 0x0010
 	WM_COMMAND equ 0x0111
+	WM_SIZE equ 0x0005
 	
 	WM_SETFONT equ 0x0030
 	fontName db 'Segoe UI', 0
