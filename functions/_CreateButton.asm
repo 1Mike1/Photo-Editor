@@ -27,7 +27,6 @@ CalculateButton:
 	xor edx, edx
 	div dword [windowProportion + 4*1]
 	mul dword [buttonOpen + 4*1]
-	sub eax, 51
 	
 	mov dword [buttonCalculate + 4*1], eax;Y
 	
@@ -40,7 +39,7 @@ CalculateButton:
 	
 	mov eax, [windowSize + 4*1]
 	xor edx, edx
-	div dword [windowProportion]
+	div dword [windowProportion + 4*1]
 	mul dword [buttonOpen + 4*3]
 	
 	mov dword [buttonCalculate + 4*3], eax;SY
