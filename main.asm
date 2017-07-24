@@ -31,9 +31,9 @@ section .bss
 	windowHandle resb 4
 	
 	windowPosition resb 4*4
-	windowSize resw 2
+	windowSize resd 2
 	
-	buttonCalculate resw 4
+	buttonCalculate resd 4
 	buttonOpenHandle resb 4
 	
 	font resw 1
@@ -72,14 +72,14 @@ section .data
 	mainWindowClassName db 'mainWindow', 0
 	mainWindowName db 'Photo Editor', 0
 	
-	windowProportion dw 5;SX
-					 dw 6;SY
+	windowProportion dd 5;SX
+					 dd 6;SY
 	
-	buttonOpen dw 0;X
-			   dw 5;Y
-			   dw 2;SX
-			   dw 1;SY
-			   dw 1;ID
+	buttonOpen dd 0;X
+			   dd 5;Y
+			   dd 2;SX
+			   dd 1;SY
+			   dd 1;ID
 			   db 'Otwórz', 0;Text
 	
 	messageTitle db 'Tytu³', 0
@@ -97,6 +97,7 @@ _main:
 	%include "functions/_CreateWindowEx.asm"
 	;push buttonOpen
 	call CalculateButton
+	call CreateButton
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 

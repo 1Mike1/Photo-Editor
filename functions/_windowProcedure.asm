@@ -64,41 +64,13 @@ windowProcedure:
 	ret 16
 	
 .onSize:
-	push dword windowSize
-	push dword [windowHandle]
-	call _GetWindowRect@8
-	
-	mov ebx, dword [windowSize + 4*3];Bottom Y
-	sub ebx, dword [windowSize + 4*1];Top Y
-	;ebx = Size Y
-	
-	mov eax, ebx
-	mov ecx, 6
-	xor edx, edx
-	div ecx
-	;eax = Button Size Y
-	
-	sub ebx, eax
-	sub ebx, 39
-	;ebx = Button Position Y
+	call CalculateButton
 	
 	push 0;NULL
-	push eax;Button Size Y
-	
-	mov eax, dword [windowSize + 4*2];Right X
-	sub eax, dword [windowSize + 4*0];Left X
-	;eax = Size X
-	
-	mov ecx, 5
-	xor edx, edx
-	div ecx
-	mov ecx, 2
-	mul ecx
-	;eax = Button Size X
-	
-	push eax;Button Size X
-	push ebx;Y
-	push 0;X
+	push dword [buttonCalculate + 4*3];Button Size Y
+	push dword [buttonCalculate + 4*2];Button Size X
+	push dword [buttonCalculate + 4*1];Y
+	push dword [buttonCalculate + 4*0];X
 	push 0
 	push dword [buttonOpenHandle]
 	call _SetWindowPos@28
