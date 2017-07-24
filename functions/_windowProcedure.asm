@@ -68,28 +68,39 @@ windowProcedure:
 	push dword [windowHandle]
 	call _GetWindowRect@8
 	
-	mov eax, dword [windowSize + 4*2];Right X
-	sub eax, dword [windowSize + 4*0];Left X
-	;eax = Size X
 	mov ebx, dword [windowSize + 4*3];Bottom Y
 	sub ebx, dword [windowSize + 4*1];Top Y
 	;ebx = Size Y
 	
 	mov eax, ebx
-	mov ecx, 5
+	mov ecx, 6
 	xor edx, edx
 	div ecx
+	;eax = Button Size Y
 	
 	sub ebx, eax
 	sub ebx, 39
+	;ebx = Button Position Y
 	
-	push 0
-	push eax;Size Y
-	push 200;Size X
+	push 0;NULL
+	push eax;Button Size Y
+	
+	mov eax, dword [windowSize + 4*2];Right X
+	sub eax, dword [windowSize + 4*0];Left X
+	;eax = Size X
+	
+	mov ecx, 5
+	xor edx, edx
+	div ecx
+	mov ecx, 2
+	mul ecx
+	;eax = Button Size X
+	
+	push eax;Button Size X
 	push ebx;Y
 	push 0;X
 	push 0
-	push dword [buttonHandle]
+	push dword [buttonOpenHandle]
 	call _SetWindowPos@28
 	
 	mov eax,0
@@ -108,7 +119,7 @@ windowProcedure:
 .onClick:
 	mov ax, [ebp_wparam]
 	;and ax, 0x0000FFFF
-	cmp ax, [buttonID]
+	cmp ax, [buttonOpen + 4*4]
 	je .buttonClick
 	mov eax,0
 	mov esp,ebp

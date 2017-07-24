@@ -18,5 +18,5 @@ mov [font], eax
 push 1
 push dword [font]
 push WM_SETFONT
-push dword [buttonHandle]
+push dword [buttonOpenHandle]
 call _SendMessageA@16

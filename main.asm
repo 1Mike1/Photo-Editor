@@ -30,10 +30,11 @@ section .bss
 	mainMessageStruct resb 7*4
 	windowHandle resb 4
 	
-	windowSize resb 4*4
+	windowPosition resb 4*4
+	windowSize resw 2
 	
-	buttonMessageStruct resb 7*4
-	buttonHandle resb 4
+	buttonCalculate resw 4
+	buttonOpenHandle resb 4
 	
 	font resw 1
 
@@ -65,14 +66,21 @@ section .data
 	WM_SIZE equ 0x0005
 	
 	WM_SETFONT equ 0x0030
+	buttonClass db 'BUTTON', 0
 	fontName db 'Segoe UI', 0
 
 	mainWindowClassName db 'mainWindow', 0
 	mainWindowName db 'Photo Editor', 0
 	
-	buttonID db 1
-	buttonClass db 'BUTTON', 0
-	buttonText db 'OK', 0
+	windowProportion dw 5;SX
+					 dw 6;SY
+	
+	buttonOpen dw 0;X
+			   dw 5;Y
+			   dw 2;SX
+			   dw 1;SY
+			   dw 1;ID
+			   db 'Otwórz', 0;Text
 	
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
@@ -87,7 +95,8 @@ _main:
 	;ShowWindow()
 	%include "functions/_RegisterClassEx.asm"
 	%include "functions/_CreateWindowEx.asm"
-	%include "functions/_CreateButton.asm"
+	;push buttonOpen
+	call CalculateButton
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 
@@ -97,3 +106,4 @@ _exit:
 	call _ExitProcess@4
 	
 	%include "functions/_windowProcedure.asm"
+	%include "functions/_CreateButton.asm"
