@@ -6,11 +6,12 @@ CalculateButton:
 	mov eax, dword [windowPosition + 4*2];Right X
 	sub eax, dword [windowPosition + 4*0];Left X
 	mov dword [windowSize + 4*0], eax
-	;windowSize[4] = Size X
+	;windowSize[0] = Size X
 	
 	mov eax, dword [windowPosition + 4*3];Bottom Y
 	sub eax, dword [windowPosition + 4*1];Top Y
 	mov dword [windowSize + 4*1], eax
+	;windowSize[1] = Size Y
 
 	;pop ecx;Error TO FIX
 	;pop ecx;button
