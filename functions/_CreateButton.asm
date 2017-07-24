@@ -45,6 +45,12 @@ CalculateButton:
 	
 	mov dword [buttonCalculate + 4*3], eax;SY
 	
+	mov dword eax, 300
+	mov dword [buttonCalculate + 4*3], eax;SY
+	mov dword ebx, [windowSize + 4*1]
+	sub dword ebx, eax
+	mov dword [buttonCalculate + 4*1], ebx;Y
+	
 	;push buttonOpen + 2*5
 	;push buttonCalculate + 2*0
 	;push buttonCalculate + 2*1
