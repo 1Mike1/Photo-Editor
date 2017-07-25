@@ -76,6 +76,18 @@ windowProcedure:
 	push dword [buttonOpenHandle]
 	call _SetWindowPos@28
 	
+	push dword buttonSave
+	call CalculateButton
+	
+	push 0;NULL
+	push dword [buttonCalculate + 4*3];Button Size Y
+	push dword [buttonCalculate + 4*2];Button Size X
+	push dword [buttonCalculate + 4*1];Y
+	push dword [buttonCalculate + 4*0];X
+	push 0
+	push dword [buttonOpenHandle]
+	call _SetWindowPos@28
+	
 	mov eax,0
 	mov esp,ebp
 	pop ebp

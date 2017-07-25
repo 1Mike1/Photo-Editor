@@ -55,13 +55,17 @@ CalculateButton:
 	pop ebp
 	ret 4
 	
-	ret
-	
 CreateButton:
+	push ebp
+	mov ebp, esp
+	%define button ebp + 8
+	mov dword ecx, [button]
+
 	push dword 0					;LPVOID lpParam 	// pointer to window-creation data
 	push dword [hInstance]			;HINSTANCE hInstance,	// handle to application instance
 	;pop eax
-	push dword [buttonOpen + 4*4]					;HMENU hMenu,	// handle to menu, or child-window identifier
+	add ecx, 4*4
+	push dword [ecx]					;HMENU hMenu,	// handle to menu, or child-window identifier
 	push dword [windowHandle]		;HWND hWndParent,	// handle to parent or owner window
 	;pop dword eax
 	push dword [buttonCalculate + 4*3]					;int nHeight,	// window height
@@ -73,10 +77,15 @@ CreateButton:
 	push dword [buttonCalculate + 4*0]					;int x,	// horizontal position of window
 	push dword WS_VISIBLECHILD		;DWORD dwStyle,	// window style
 	;pop dword eax
-	push dword buttonOpen + 4*5					;LPCTSTR lpWindowName,	// pointer to window name
+	add ecx, 4
+	push dword ecx					;LPCTSTR lpWindowName,	// pointer to window name
 	push dword buttonClass			;LPCTSTR lpClassName,	// pointer to registered class name
 	push dword 0					;DWORD dwExStyle,	// extended window style
 	call _CreateWindowExA@48
 	
 	mov [buttonOpenHandle], eax
-	ret
+	
+	mov eax,0
+	mov esp,ebp
+	pop ebp
+	ret 4

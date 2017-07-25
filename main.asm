@@ -34,7 +34,9 @@ section .bss
 	windowSize resd 2
 	
 	buttonCalculate resd 4
+	
 	buttonOpenHandle resb 4
+	buttonSaveHandle resb 4
 	
 	font resw 1
 
@@ -81,6 +83,13 @@ section .data
 			   dd 1;SY
 			   dd 1;ID
 			   db 'Open', 0;Text
+			   
+	buttonSave dd 2;X
+			   dd 5;Y
+			   dd 2;SX
+			   dd 1;SY
+			   dd 2;ID
+			   db 'Save', 0;Text
 	
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
@@ -96,6 +105,16 @@ _main:
 	%include "functions/_CreateWindowEx.asm"
 	push dword buttonOpen
 	call CalculateButton
+	
+	push dword buttonOpenHandle
+	push dword buttonOpen
+	call CreateButton
+	
+	push dword buttonSave
+	call CalculateButton
+	
+	push dword buttonSaveHandle
+	push dword buttonSave
 	call CreateButton
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
