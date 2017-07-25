@@ -15,14 +15,15 @@ CalculateButton:
 	
 	push ebp
 	mov ebp, esp
-	%define button ebp + 8
-	;pop ecx
-	mov dword ecx, [button]
+	mov dword ecx, [ebp + 8]
 	
 	mov eax, [windowSize + 4*0]
 	xor edx, edx
 	div dword [windowProportion + 4*0]
+	mov ebx, edx
 	mul dword [ecx + 4*0]
+	add eax, ebx
+	sub eax, 15;Why? Life is Mystery
 	
 	mov dword [buttonCalculate + 4*0], eax;X
 	
@@ -55,37 +56,50 @@ CalculateButton:
 	pop ebp
 	ret 4
 	
-CreateButton:
+SetButtonPosition:
 	push ebp
 	mov ebp, esp
-	%define button ebp + 8
-	mov dword ecx, [button]
+	mov dword ecx, [ebp + 8]
 
-	push dword 0					;LPVOID lpParam 	// pointer to window-creation data
-	push dword [hInstance]			;HINSTANCE hInstance,	// handle to application instance
-	;pop eax
-	add ecx, 4*4
-	push dword [ecx]					;HMENU hMenu,	// handle to menu, or child-window identifier
-	push dword [windowHandle]		;HWND hWndParent,	// handle to parent or owner window
-	;pop dword eax
-	push dword [buttonCalculate + 4*3]					;int nHeight,	// window height
-	;pop dword eax
-	push dword [buttonCalculate + 4*2]					;int nWidth,	// window width
-	;pop dword eax
-	push dword [buttonCalculate + 4*1]					;int y,	// vertical position of window
-	;pop dword eax
-	push dword [buttonCalculate + 4*0]					;int x,	// horizontal position of window
-	push dword WS_VISIBLECHILD		;DWORD dwStyle,	// window style
-	;pop dword eax
-	add ecx, 4
-	push dword ecx					;LPCTSTR lpWindowName,	// pointer to window name
-	push dword buttonClass			;LPCTSTR lpClassName,	// pointer to registered class name
-	push dword 0					;DWORD dwExStyle,	// extended window style
-	call _CreateWindowExA@48
-	
-	mov [buttonOpenHandle], eax
+	push 0
+	push dword [buttonCalculate + 4*3];Button Size Y
+	push dword [buttonCalculate + 4*2];Button Size X
+	push dword [buttonCalculate + 4*1];Y
+	push dword [buttonCalculate + 4*0];X
+	push 0
+	push dword [ecx]
+	call _SetWindowPos@28
 	
 	mov eax,0
 	mov esp,ebp
 	pop ebp
 	ret 4
+	
+CreateButton:
+	push ebp
+	mov ebp, esp
+	mov dword eax, [ebp + 8]
+	mov dword ebx, [ebp + 12]
+
+	push dword 0						;LPVOID lpParam 	// pointer to window-creation data
+	push dword [hInstance]				;HINSTANCE hInstance,	// handle to application instance
+	add eax, 4*4
+	push dword [eax]					;HMENU hMenu,	// handle to menu, or child-window identifier
+	push dword [windowHandle]			;HWND hWndParent,	// handle to parent or owner window
+	push dword [buttonCalculate + 4*3]	;int nHeight,	// window height
+	push dword [buttonCalculate + 4*2]	;int nWidth,	// window width
+	push dword [buttonCalculate + 4*1]	;int y,	// vertical position of window
+	push dword [buttonCalculate + 4*0]	;int x,	// horizontal position of window
+	push dword WS_VISIBLECHILD			;DWORD dwStyle,	// window style
+	add eax, 4
+	push dword eax						;LPCTSTR lpWindowName,	// pointer to window name
+	push dword buttonClass				;LPCTSTR lpClassName,	// pointer to registered class name
+	push dword 0						;DWORD dwExStyle,	// extended window style
+	call _CreateWindowExA@48
+	
+	mov [ebx], eax
+	
+	mov eax,0
+	mov esp,ebp
+	pop ebp
+	ret 8

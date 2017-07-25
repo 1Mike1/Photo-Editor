@@ -66,27 +66,28 @@ windowProcedure:
 .onSize:
 	push dword buttonOpen
 	call CalculateButton
-	
-	push 0;NULL
-	push dword [buttonCalculate + 4*3];Button Size Y
-	push dword [buttonCalculate + 4*2];Button Size X
-	push dword [buttonCalculate + 4*1];Y
-	push dword [buttonCalculate + 4*0];X
-	push 0
-	push dword [buttonOpenHandle]
-	call _SetWindowPos@28
+	push dword buttonOpenHandle
+	call SetButtonPosition
 	
 	push dword buttonSave
 	call CalculateButton
+	push dword buttonSaveHandle
+	call SetButtonPosition
 	
-	push 0;NULL
-	push dword [buttonCalculate + 4*3];Button Size Y
-	push dword [buttonCalculate + 4*2];Button Size X
-	push dword [buttonCalculate + 4*1];Y
-	push dword [buttonCalculate + 4*0];X
-	push 0
-	push dword [buttonOpenHandle]
-	call _SetWindowPos@28
+	push dword buttonBNW
+	call CalculateButton
+	push dword buttonBNWHandle
+	call SetButtonPosition
+	
+	push dword buttonSepia
+	call CalculateButton
+	push dword buttonSepiaHandle
+	call SetButtonPosition
+	
+	push dword buttonReset
+	call CalculateButton
+	push dword buttonResetHandle
+	call SetButtonPosition
 	
 	mov eax,0
 	mov esp,ebp

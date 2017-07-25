@@ -38,6 +38,10 @@ section .bss
 	buttonOpenHandle resb 4
 	buttonSaveHandle resb 4
 	
+	buttonBNWHandle resb 4
+	buttonSepiaHandle resb 4
+	buttonResetHandle resb 4
+	
 	font resw 1
 
 section .data
@@ -90,6 +94,27 @@ section .data
 			   dd 1;SY
 			   dd 2;ID
 			   db 'Save', 0;Text
+			   
+	buttonBNW dd 4;X
+			  dd 0;Y
+			  dd 1;SX
+			  dd 1;SY
+			  dd 3;ID
+			  db 'Black and White', 0;Text
+			  
+	buttonSepia dd 4;X
+				dd 1;Y
+				dd 1;SX
+				dd 1;SY
+				dd 3;ID
+				db 'Sepia', 0;Text
+				
+	buttonReset dd 4;X
+				dd 2;Y
+				dd 1;SX
+				dd 1;SY
+				dd 3;ID
+				db 'Reset', 0;Text
 	
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
@@ -105,16 +130,32 @@ _main:
 	%include "functions/_CreateWindowEx.asm"
 	push dword buttonOpen
 	call CalculateButton
-	
 	push dword buttonOpenHandle
 	push dword buttonOpen
 	call CreateButton
 	
 	push dword buttonSave
 	call CalculateButton
-	
 	push dword buttonSaveHandle
 	push dword buttonSave
+	call CreateButton
+	
+	push dword buttonBNW
+	call CalculateButton
+	push dword buttonBNWHandle
+	push dword buttonBNW
+	call CreateButton
+	
+	push dword buttonSepia
+	call CalculateButton
+	push dword buttonSepiaHandle
+	push dword buttonSepia
+	call CreateButton
+	
+	push dword buttonReset
+	call CalculateButton
+	push dword buttonResetHandle
+	push dword buttonReset
 	call CreateButton
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
