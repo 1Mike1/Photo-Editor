@@ -19,37 +19,36 @@ CalculateButton:
 	mov ebp, esp
 	mov dword ecx, [ebp + 8]
 	
-	mov eax, [windowSize + 4*0]
-	xor edx, edx
-	div dword [windowProportion + 4*0]
-	mov ebx, edx
-	mul dword [ecx + 4*0]
-	add eax, ebx
+	fild dword [windowSize + 4*0]
+	fidiv dword [windowProportion + 4*0]
+	fmul qword [ecx + 8*0]
 	
-	mov dword [buttonCalculate + 4*0], eax;X
+	frndint
+	fistp dword [buttonCalculate + 4*0];X
 	
-	mov eax, [windowSize + 4*1]
-	xor edx, edx
-	div dword [windowProportion + 4*1]
-	mov ebx, edx
-	mul dword [ecx + 4*1]
-	add eax, ebx
 	
-	mov dword [buttonCalculate + 4*1], eax;Y
+	fild dword [windowSize + 4*1]
+	fidiv dword [windowProportion + 4*1]
+	fmul qword [ecx + 8*1]
 	
-	mov eax, [windowSize + 4*0]
-	xor edx, edx
-	div dword [windowProportion + 4*0]
-	mul dword [ecx + 4*2]
+	frndint
+	fistp dword [buttonCalculate + 4*1];Y
 	
-	mov dword [buttonCalculate + 4*2], eax;SX
 	
-	mov eax, [windowSize + 4*1]
-	xor edx, edx
-	div dword [windowProportion + 4*1]
-	mul dword [ecx + 4*3]
+	fild dword [windowSize + 4*0]
+	fidiv dword [windowProportion + 4*0]
+	fmul qword [ecx + 8*2]
 	
-	mov dword [buttonCalculate + 4*3], eax;SY
+	frndint
+	fistp dword [buttonCalculate + 4*2];SX
+	
+	
+	fild dword [windowSize + 4*1]
+	fidiv dword [windowProportion + 4*1]
+	fmul qword [ecx + 8*3]
+	
+	frndint
+	fistp dword [buttonCalculate + 4*3];SY
 	
 	mov eax,0
 	mov esp,ebp
@@ -83,7 +82,7 @@ CreateButton:
 
 	push dword 0						;LPVOID lpParam 	// pointer to window-creation data
 	push dword [hInstance]				;HINSTANCE hInstance,	// handle to application instance
-	add eax, 4*4
+	add eax, 8*4
 	push dword [eax]					;HMENU hMenu,	// handle to menu, or child-window identifier
 	push dword [windowHandle]			;HWND hWndParent,	// handle to parent or owner window
 	push dword [buttonCalculate + 4*3]	;int nHeight,	// window height

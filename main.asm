@@ -81,39 +81,39 @@ section .data
 	windowProportion dd 5;SX
 					 dd 6;SY
 	
-	buttonOpen dd 0;X
-			   dd 5;Y
-			   dd 2;SX
-			   dd 1;SY
+	buttonOpen dq 0.0;X
+			   dq 5.0;Y
+			   dq 2.0;SX
+			   dq 1.0;SY
 			   dd 1;ID
 			   db 'Open', 0;Text
 			   
-	buttonSave dd 2;X
-			   dd 5;Y
-			   dd 2;SX
-			   dd 1;SY
+	buttonSave dq 2.0;X
+			   dq 5.0;Y
+			   dq 2.0;SX
+			   dq 1.0;SY
 			   dd 2;ID
 			   db 'Save', 0;Text
-			   
-	buttonBNW dd 4;X
-			  dd 0;Y
-			  dd 1;SX
-			  dd 1;SY
-			  dd 3;ID
-			  db 'Black and White', 0;Text
-			  
-	buttonSepia dd 4;X
-				dd 1;Y
-				dd 1;SX
-				dd 1;SY
+	
+	buttonSepia dq 4.0;X
+				dq 0.0;Y
+				dq 1.0;SX
+				dq 1.6666;SY
 				dd 3;ID
 				db 'Sepia', 0;Text
+	
+	buttonBNW dq 4.0;X
+			  dq 1.6666;Y
+			  dq 1.0;SX
+			  dq 1.6666;SY
+			  dd 4;ID
+			  db 'Black and White', 0;Text
 				
-	buttonReset dd 4;X
-				dd 2;Y
-				dd 1;SX
-				dd 1;SY
-				dd 3;ID
+	buttonReset dq 4.0;X
+				dq 3.3332;Y
+				dq 1.0;SX
+				dq 1.6666;SY
+				dd 5;ID
 				db 'Reset', 0;Text
 	
 	messageTitle db 'Tytu³', 0
