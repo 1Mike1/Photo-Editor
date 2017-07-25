@@ -5,11 +5,13 @@ CalculateButton:
 	
 	mov eax, dword [windowPosition + 4*2];Right X
 	sub eax, dword [windowPosition + 4*0];Left X
+	sub eax, 17;Correction
 	mov dword [windowSize + 4*0], eax
 	;windowSize[0] = Size X
 	
 	mov eax, dword [windowPosition + 4*3];Bottom Y
 	sub eax, dword [windowPosition + 4*1];Top Y
+	sub eax, 40;Correction
 	mov dword [windowSize + 4*1], eax
 	;windowSize[1] = Size Y
 	
@@ -23,7 +25,6 @@ CalculateButton:
 	mov ebx, edx
 	mul dword [ecx + 4*0]
 	add eax, ebx
-	sub eax, 15;Why? Life is Mystery
 	
 	mov dword [buttonCalculate + 4*0], eax;X
 	
@@ -33,7 +34,6 @@ CalculateButton:
 	mov ebx, edx
 	mul dword [ecx + 4*1]
 	add eax, ebx
-	sub eax, 39;Why? Life is Mystery
 	
 	mov dword [buttonCalculate + 4*1], eax;Y
 	
