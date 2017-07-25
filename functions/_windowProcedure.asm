@@ -105,7 +105,7 @@ windowProcedure:
 .onClick:
 	mov ax, [ebp_wparam]
 	;and ax, 0x0000FFFF
-	cmp ax, [buttonOpen + 4*4]
+	cmp ax, [buttonOpen + 8*4]
 	je .buttonClick
 	mov eax,0
 	mov esp,ebp

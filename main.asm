@@ -112,7 +112,7 @@ section .data
 	buttonReset dq 4.0;X
 				dq 3.3332;Y
 				dq 1.0;SX
-				dq 1.6666;SY
+				dq 1.6668;SY
 				dd 5;ID
 				db 'Reset', 0;Text
 	
