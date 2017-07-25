@@ -27,7 +27,10 @@ CalculateButton:
 	mov eax, [windowSize + 4*1]
 	xor edx, edx
 	div dword [windowProportion + 4*1]
+	mov ebx, edx
 	mul dword [buttonOpen + 4*1]
+	add eax, ebx
+	sub eax, 39;Why? Life is Mystery
 	
 	mov dword [buttonCalculate + 4*1], eax;Y
 	
@@ -44,12 +47,6 @@ CalculateButton:
 	mul dword [buttonOpen + 4*3]
 	
 	mov dword [buttonCalculate + 4*3], eax;SY
-	
-	mov dword eax, 300
-	mov dword [buttonCalculate + 4*3], eax;SY
-	mov dword ebx, [windowSize + 4*1]
-	sub dword ebx, eax
-	mov dword [buttonCalculate + 4*1], ebx;Y
 	
 	;push buttonOpen + 2*5
 	;push buttonCalculate + 2*0

@@ -80,7 +80,7 @@ section .data
 			   dd 2;SX
 			   dd 1;SY
 			   dd 1;ID
-			   db 'Otwórz', 0;Text
+			   db 'Open', 0;Text
 	
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
