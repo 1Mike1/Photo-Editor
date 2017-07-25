@@ -64,6 +64,7 @@ windowProcedure:
 	ret 16
 	
 .onSize:
+	push dword buttonOpen
 	call CalculateButton
 	
 	push 0;NULL

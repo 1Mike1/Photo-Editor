@@ -92,10 +92,9 @@ _main:
 	call _GetModuleHandleA@4
 	mov [hInstance], eax
 	
-	;ShowWindow()
 	%include "functions/_RegisterClassEx.asm"
 	%include "functions/_CreateWindowEx.asm"
-	;push buttonOpen
+	push dword buttonOpen
 	call CalculateButton
 	call CreateButton
 	%include "functions/_ChangeFont.asm"

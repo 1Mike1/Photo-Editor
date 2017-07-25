@@ -12,15 +12,17 @@ CalculateButton:
 	sub eax, dword [windowPosition + 4*1];Top Y
 	mov dword [windowSize + 4*1], eax
 	;windowSize[1] = Size Y
-
-	;pop ecx;Error TO FIX
-	;pop ecx;button
-	;pop ebx;buttonCalculate
+	
+	push ebp
+	mov ebp, esp
+	%define button ebp + 8
+	;pop ecx
+	mov dword ecx, [button]
 	
 	mov eax, [windowSize + 4*0]
 	xor edx, edx
 	div dword [windowProportion + 4*0]
-	mul dword [buttonOpen + 4*0]
+	mul dword [ecx + 4*0]
 	
 	mov dword [buttonCalculate + 4*0], eax;X
 	
@@ -28,7 +30,7 @@ CalculateButton:
 	xor edx, edx
 	div dword [windowProportion + 4*1]
 	mov ebx, edx
-	mul dword [buttonOpen + 4*1]
+	mul dword [ecx + 4*1]
 	add eax, ebx
 	sub eax, 39;Why? Life is Mystery
 	
@@ -37,24 +39,21 @@ CalculateButton:
 	mov eax, [windowSize + 4*0]
 	xor edx, edx
 	div dword [windowProportion + 4*0]
-	mul dword [buttonOpen + 4*2]
+	mul dword [ecx + 4*2]
 	
 	mov dword [buttonCalculate + 4*2], eax;SX
 	
 	mov eax, [windowSize + 4*1]
 	xor edx, edx
 	div dword [windowProportion + 4*1]
-	mul dword [buttonOpen + 4*3]
+	mul dword [ecx + 4*3]
 	
 	mov dword [buttonCalculate + 4*3], eax;SY
 	
-	;push buttonOpen + 2*5
-	;push buttonCalculate + 2*0
-	;push buttonCalculate + 2*1
-	;push buttonCalculate + 2*2
-	;push buttonCalculate + 2*3
-	;push buttonOpen + 2*4
-	;jmp CreateButton
+	mov eax,0
+	mov esp,ebp
+	pop ebp
+	ret 4
 	
 	ret
 	
