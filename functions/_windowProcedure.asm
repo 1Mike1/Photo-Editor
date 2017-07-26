@@ -106,18 +106,14 @@ windowProcedure:
 	mov ax, [ebp_wparam]
 	;and ax, 0x0000FFFF
 	cmp ax, [buttonOpen + 8*4]
-	je .buttonClick
+	je .buttonOpenClick
 	mov eax,0
 	mov esp,ebp
 	pop ebp
 	ret 16
 	
-.buttonClick:
-	push 0
-	push messageTitle
-	push messageText
-	push 0
-	call _MessageBoxA@16
+.buttonOpenClick:
+
 	mov eax,0
 	mov esp,ebp
 	pop ebp

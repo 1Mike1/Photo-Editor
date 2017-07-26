@@ -24,6 +24,9 @@ extern _DispatchMessageA@4
 extern _SendMessageA@16
 extern _CreateFontA@56
 
+extern _memset
+extern _GetOpenFileNameA@4
+
 section .bss
 	hInstance resb 4
 	mainWindowClassEx resb 12*4
@@ -118,6 +121,27 @@ section .data
 	
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
+	
+	OPENFILENAME dd 88
+				 dd windowHandle
+				 dd hInstance
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 5
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 0
+				 dw 0
+				 dw 0
+				 dd 0
+				 dd 0
+				 dd 0
+				 dd 0
 
 section .text
 _main:
@@ -157,6 +181,7 @@ _main:
 	push dword buttonResetHandle
 	push dword buttonReset
 	call CreateButton
+	
 	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 
@@ -167,3 +192,4 @@ _exit:
 	
 	%include "functions/_windowProcedure.asm"
 	%include "functions/_CreateButton.asm"
+	%include "functions/_FileOperations.asm"
