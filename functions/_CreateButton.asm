@@ -96,6 +96,12 @@ CreateButton:
 	push dword 0						;DWORD dwExStyle,	// extended window style
 	call _CreateWindowExA@48
 	
+	push dword 1
+	push dword [font]
+	push dword WM_SETFONT
+	push dword eax
+	call _SendMessageA@16
+	
 	mov [ebx], eax
 	
 	mov eax,0

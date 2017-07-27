@@ -160,6 +160,7 @@ _main:
 	mov eax, [windowHandle]
 	mov [OPENFILENAME + 4], eax
 	
+	%include "functions/_CreateFont.asm"
 	%include "functions/_RegisterClassEx.asm"
 	%include "functions/_CreateWindowEx.asm"
 	
@@ -193,7 +194,6 @@ _main:
 	push dword buttonReset
 	call CreateButton
 	
-	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 
 _exit:

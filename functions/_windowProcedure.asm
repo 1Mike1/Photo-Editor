@@ -113,7 +113,6 @@ windowProcedure:
 	push fileName
 	push 0
 	call _MessageBoxA@16
-	
 _null:
 	mov eax,0
 	mov esp,ebp
