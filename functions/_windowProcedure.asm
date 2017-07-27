@@ -105,6 +105,16 @@ windowProcedure:
 .buttonOpenClick:
 	push OPENFILENAME
 	call _GetOpenFileNameA@4
+	cmp eax, 0
+	je _null
+	
+	push 0
+	push fileName
+	push fileName
+	push 0
+	call _MessageBoxA@16
+	
+_null:
 	mov eax,0
 	mov esp,ebp
 	pop ebp

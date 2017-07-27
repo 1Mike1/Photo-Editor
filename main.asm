@@ -26,6 +26,8 @@ extern _CreateFontA@56
 
 extern _GetOpenFileNameA@4
 
+extern _MessageBoxA@16
+
 section .bss
 	hInstance resb 4
 	mainWindowClassEx resb 12*4
@@ -44,7 +46,7 @@ section .bss
 	buttonSepiaHandle resb 4
 	buttonResetHandle resb 4
 	
-	font resw 1
+	font resd 1
 	
 	fileName resb 260
 
@@ -191,7 +193,7 @@ _main:
 	push dword buttonReset
 	call CreateButton
 	
-	;%include "functions/_ChangeFont.asm"
+	%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 
 _exit:
