@@ -24,7 +24,6 @@ extern _DispatchMessageA@4
 extern _SendMessageA@16
 extern _CreateFontA@56
 
-extern _memset
 extern _GetOpenFileNameA@4
 
 section .bss
@@ -46,6 +45,8 @@ section .bss
 	buttonResetHandle resb 4
 	
 	font resw 1
+	
+	fileName resb 260
 
 section .data
 	CS_VREDRAW  equ 0x0001
@@ -122,15 +123,16 @@ section .data
 	messageTitle db 'Tytu³', 0
 	messageText db 'Tekst', 0
 	
-	OPENFILENAME dd 88
-				 dd windowHandle
-				 dd hInstance
+	filter db 'Photo Files (*.jpg; *.jpeg; *.png; *.gif)', 0, '*.jpg;*.jpeg;*.png;*.gif', 0, 0
+	OPENFILENAME dd 88;lStructSize
+				 dd 0;windowHandle
+				 dd 0;hInstance
+				 dd filter
 				 dd 0
 				 dd 0
 				 dd 0
-				 dd 0
-				 dd 0
-				 dd 5
+				 dd fileName;lpstrFile
+				 dd 260;nMaxFile
 				 dd 0
 				 dd 0
 				 dd 0
@@ -138,6 +140,9 @@ section .data
 				 dd 0
 				 dw 0
 				 dw 0
+				 dd 0
+				 dd 0
+				 dd 0
 				 dd 0
 				 dd 0
 				 dd 0
@@ -150,8 +155,12 @@ _main:
 	call _GetModuleHandleA@4
 	mov [hInstance], eax
 	
+	mov eax, [windowHandle]
+	mov [OPENFILENAME + 4], eax
+	
 	%include "functions/_RegisterClassEx.asm"
 	%include "functions/_CreateWindowEx.asm"
+	
 	push dword buttonOpen
 	call CalculateButton
 	push dword buttonOpenHandle
@@ -182,7 +191,7 @@ _main:
 	push dword buttonReset
 	call CreateButton
 	
-	%include "functions/_ChangeFont.asm"
+	;%include "functions/_ChangeFont.asm"
 	%include "functions/_MessageLoop.asm"
 
 _exit:
@@ -192,4 +201,3 @@ _exit:
 	
 	%include "functions/_windowProcedure.asm"
 	%include "functions/_CreateButton.asm"
-	%include "functions/_FileOperations.asm"

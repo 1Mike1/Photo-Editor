@@ -54,15 +54,6 @@ windowProcedure:
 	pop ebp
 	ret 16 ; stdcall convetion requres pop all parameters from stack 4*4 = 16 bytes
 	
-.onMinimalize:
-	push dword 6
-	push dword [windowHandle]
-	call _ShowWindow@8
-	mov eax,0
-	mov esp,ebp
-	pop ebp
-	ret 16
-	
 .onSize:
 	push dword buttonOpen
 	call CalculateButton
@@ -104,7 +95,6 @@ windowProcedure:
 	
 .onClick:
 	mov ax, [ebp_wparam]
-	;and ax, 0x0000FFFF
 	cmp ax, [buttonOpen + 8*4]
 	je .buttonOpenClick
 	mov eax,0
@@ -113,7 +103,8 @@ windowProcedure:
 	ret 16
 	
 .buttonOpenClick:
-
+	push OPENFILENAME
+	call _GetOpenFileNameA@4
 	mov eax,0
 	mov esp,ebp
 	pop ebp
