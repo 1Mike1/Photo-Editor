@@ -35,7 +35,7 @@ section .bss
 	windowHandle resb 4
 	
 	windowPosition resb 4*4
-	windowSize resd 2
+	windowSize resq 2
 	
 	buttonCalculate resd 4
 	
@@ -83,6 +83,9 @@ section .data
 
 	mainWindowClassName db 'mainWindow', 0
 	mainWindowName db 'Photo Editor', 0
+	
+	windowCorrection dd 17
+					 dd 40
 	
 	windowProportion dd 5;SX
 					 dd 6;SY

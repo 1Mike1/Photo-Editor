@@ -3,50 +3,51 @@ CalculateButton:
 	push dword [windowHandle]
 	call _GetWindowRect@8
 	
-	mov eax, dword [windowPosition + 4*2];Right X
-	sub eax, dword [windowPosition + 4*0];Left X
-	sub eax, 17;Correction
-	mov dword [windowSize + 4*0], eax
+	;mov eax, dword [windowPosition + 4*2];Right X
+	;sub eax, dword [windowPosition + 4*0];Left X
+	;sub eax, 17;Correction
+	;mov dword [windowSize + 4*0], eax
+	
+	;mov eax, dword [windowPosition + 4*3];Bottom Y
+	;sub eax, dword [windowPosition + 4*1];Top Y
+	;sub eax, 40;Correction
+	;mov dword [windowSize + 4*1], eax
+	
+	fild dword [windowPosition + 4*2];Right X
+	fisub dword [windowPosition + 4*0];Left X
+	fisub dword [windowCorrection + 4*0]
+	fidiv dword [windowProportion + 4*0]
+	fstp qword [windowSize + 8*0]
 	;windowSize[0] = Size X
 	
-	mov eax, dword [windowPosition + 4*3];Bottom Y
-	sub eax, dword [windowPosition + 4*1];Top Y
-	sub eax, 40;Correction
-	mov dword [windowSize + 4*1], eax
+	fild dword [windowPosition + 4*3]
+	fisub dword [windowPosition + 4*1]
+	fisub dword [windowCorrection + 4*1];Bottom Y
+	fidiv dword [windowProportion + 4*1];Top Y
+	fstp qword [windowSize + 8*1]
 	;windowSize[1] = Size Y
 	
 	push ebp
 	mov ebp, esp
-	mov dword ecx, [ebp + 8]
+	mov dword ecx, [ebp + 8];ButtonCalculate
 	
-	fild dword [windowSize + 4*0]
-	fidiv dword [windowProportion + 4*0]
+	fld qword [windowSize + 8*0]
 	fmul qword [ecx + 8*0]
-	
 	frndint
 	fistp dword [buttonCalculate + 4*0];X
 	
-	
-	fild dword [windowSize + 4*1]
-	fidiv dword [windowProportion + 4*1]
+	fld qword [windowSize + 8*1]
 	fmul qword [ecx + 8*1]
-	
 	frndint
 	fistp dword [buttonCalculate + 4*1];Y
 	
-	
-	fild dword [windowSize + 4*0]
-	fidiv dword [windowProportion + 4*0]
+	fld qword [windowSize + 8*0]
 	fmul qword [ecx + 8*2]
-	
 	frndint
 	fistp dword [buttonCalculate + 4*2];SX
 	
-	
-	fild dword [windowSize + 4*1]
-	fidiv dword [windowProportion + 4*1]
+	fld qword [windowSize + 8*1]
 	fmul qword [ecx + 8*3]
-	
 	frndint
 	fistp dword [buttonCalculate + 4*3];SY
 	
@@ -96,13 +97,13 @@ CreateButton:
 	push dword 0						;DWORD dwExStyle,	// extended window style
 	call _CreateWindowExA@48
 	
+	mov [ebx], eax
+	
 	push dword 1
 	push dword [font]
 	push dword WM_SETFONT
 	push dword eax
 	call _SendMessageA@16
-	
-	mov [ebx], eax
 	
 	mov eax,0
 	mov esp,ebp

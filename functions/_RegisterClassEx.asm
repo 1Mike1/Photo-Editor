@@ -40,7 +40,7 @@
 
 	; 12. WNDCLASSEX.hIcon
 	push dword IDC_ARROW
-	push dword  [hInstance]
+	push dword [hInstance]
 	call _LoadCursorA@8
 	mov [mainWindowClassEx + 44],eax
 	
